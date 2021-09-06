@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  django:
+    build: .
+    container_name: "django"
+    working_dir: '/app/'
+    entrypoint:
+      - entrypoints/entrypoint.sh
+    volumes:
+      - .:/app/
+
+    ports:
+      - '8000:8000'

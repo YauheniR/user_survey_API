@@ -32,7 +32,7 @@ class QuestionModel(models.Model):
 class AnswerModel(models.Model):
     user_id = models.BigIntegerField()
     answer = models.TextField()
-    question = models.ManyToManyField(QuestionModel)
+    question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.answer

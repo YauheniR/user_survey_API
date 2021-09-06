@@ -1,11 +1,10 @@
 from django.contrib import admin
-from survey.models import SurveyModel
+from survey.models import SurveyModel, AnswerModel
 from survey.models import QuestionModel
 
 
 class QuestionInstanceInLine(admin.TabularInline):
     model = QuestionModel
-    min_num = 1
     extra = 0
     fields = ('type', 'content',)
 
@@ -19,5 +18,10 @@ class QuestionAdmin(admin.ModelAdmin):
     fields = ('type', 'content', 'survey')
 
 
+class AnswerAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(AnswerModel, AnswerAdmin)
 admin.site.register(SurveyModel, SurveyAdmin)
 admin.site.register(QuestionModel, QuestionAdmin)
