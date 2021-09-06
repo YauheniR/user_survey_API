@@ -8,6 +8,7 @@ django = "==2.2.10"
 djangorestframework = "*"
 content = "*"
 self = "*"
+drf-spectacular = "*"
 
 [dev-packages]
 
