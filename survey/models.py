@@ -12,21 +12,23 @@ class SurveyModel(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'survey'
-        verbose_name_plural = 'surveys'
+        verbose_name = "survey"
+        verbose_name_plural = "surveys"
 
 
 class QuestionModel(models.Model):
-    type = models.CharField(max_length=2, choices=QuestionTypeEnum.QUESTION_TYPE_CHOICES.value)
+    type = models.CharField(
+        max_length=2, choices=QuestionTypeEnum.QUESTION_TYPE_CHOICES.value
+    )
     content = models.TextField()
     survey = models.ForeignKey(SurveyModel, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return 'Question: ' + self.survey.title + ' survey'
+        return "Question: " + self.survey.title + " survey"
 
     class Meta:
-        verbose_name = 'question'
-        verbose_name_plural = 'questions'
+        verbose_name = "question"
+        verbose_name_plural = "questions"
 
 
 class AnswerModel(models.Model):
@@ -38,5 +40,5 @@ class AnswerModel(models.Model):
         return self.answer
 
     class Meta:
-        verbose_name = 'answer'
-        verbose_name_plural = 'answers'
+        verbose_name = "answer"
+        verbose_name_plural = "answers"

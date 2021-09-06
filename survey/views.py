@@ -21,8 +21,8 @@ class SurveyViews(generics.ListAPIView):
     def get_queryset(self):
         return (
             super(SurveyViews, self)
-                .get_queryset()
-                .filter(survey_id=self.kwargs.get("survey_id"))
+            .get_queryset()
+            .filter(survey_id=self.kwargs.get("survey_id"))
         )
 
 

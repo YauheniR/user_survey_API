@@ -7,16 +7,16 @@ from survey.models import AnswerModel
 class SurveysSerializer(serializers.ModelSerializer):
     class Meta:
         model = SurveyModel
-        fields = '__all__'
+        fields = "__all__"
 
 
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionModel
-        fields = '__all__'
+        fields = "__all__"
 
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerModel
-        fields = '__all__'
+        fields = "__all__"

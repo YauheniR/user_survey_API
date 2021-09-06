@@ -7,7 +7,7 @@ class QuestionTypeEnum(Enum):
     SEVERAL_CHOICE = "SC"
 
     QUESTION_TYPE_CHOICES = (
-        (TEXT_RESPONSE, 'Answer with a text'),
-        (ONE_CHOICE, 'Choice of one options'),
-        (SEVERAL_CHOICE, 'Answer with a choice of several options'),
+        (TEXT_RESPONSE, "Answer with a text"),
+        (ONE_CHOICE, "Choice of one options"),
+        (SEVERAL_CHOICE, "Answer with a choice of several options"),
     )
