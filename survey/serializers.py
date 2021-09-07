@@ -4,6 +4,12 @@ from survey.models import QuestionModel
 from survey.models import AnswerModel
 
 
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionModel
+        fields = ("type", "content")
+
+
 class SurveysSerializer(serializers.ModelSerializer):
     class Meta:
         model = SurveyModel
@@ -11,8 +17,10 @@ class SurveysSerializer(serializers.ModelSerializer):
 
 
 class SurveySerializer(serializers.ModelSerializer):
+    question = QuestionSerializer(many=True)
+
     class Meta:
-        model = QuestionModel
+        model = SurveyModel
         fields = "__all__"
 
 

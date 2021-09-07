@@ -10,7 +10,7 @@ urlpatterns = [
         include(
             [
                 path("", SurveyViews.as_view()),
-                path("<int:question_id>", AnswerViews.as_view()),
+                path("answer/", AnswerViews.as_view()),
             ]
         ),
     ),

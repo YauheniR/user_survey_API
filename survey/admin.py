@@ -1,5 +1,5 @@
 from django.contrib import admin
-from survey.models import SurveyModel, AnswerModel
+from survey.models import SurveyModel
 from survey.models import QuestionModel
 
 
@@ -24,14 +24,4 @@ class SurveyAdmin(admin.ModelAdmin):
     )
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    fields = ("type", "content", "survey")
-
-
-class AnswerAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(AnswerModel, AnswerAdmin)
 admin.site.register(SurveyModel, SurveyAdmin)
-admin.site.register(QuestionModel, QuestionAdmin)

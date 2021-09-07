@@ -1,4 +1,5 @@
 from django.db import models
+
 from survey.constants import QuestionTypeEnum
 
 
@@ -21,10 +22,9 @@ class QuestionModel(models.Model):
         max_length=2, choices=QuestionTypeEnum.QUESTION_TYPE_CHOICES.value
     )
     content = models.TextField()
-    survey = models.ForeignKey(SurveyModel, on_delete=models.CASCADE)
-
-    def __str__(self) -> str:
-        return "Question: " + self.survey.title + " survey"
+    survey = models.ForeignKey(
+        SurveyModel, on_delete=models.CASCADE, related_name="question"
+    )
 
     class Meta:
         verbose_name = "question"
@@ -34,7 +34,7 @@ class QuestionModel(models.Model):
 class AnswerModel(models.Model):
     user_id = models.BigIntegerField()
     answer = models.TextField()
-    question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE)
+    question = QuestionModel
 
     def __str__(self) -> str:
         return self.answer

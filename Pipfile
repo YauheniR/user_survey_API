@@ -9,6 +9,7 @@ djangorestframework = "*"
 content = "*"
 self = "*"
 drf-spectacular = "*"
+question = "*"
 
 [dev-packages]
 
