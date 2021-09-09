@@ -1,5 +1,4 @@
 from django.db import models
-
 from survey.constants import QuestionTypeEnum
 
 
@@ -31,10 +30,21 @@ class QuestionModel(models.Model):
         verbose_name_plural = "questions"
 
 
-class AnswerModel(models.Model):
+class SurveyResponsesModel(models.Model):
     user_id = models.BigIntegerField()
+    survey = models.ForeignKey(
+        SurveyModel, on_delete=models.CASCADE, related_name="response"
+    )
+
+
+class AnswerModel(models.Model):
     answer = models.TextField()
-    question = QuestionModel
+    question = models.ForeignKey(
+        QuestionModel, on_delete=models.CASCADE, related_name="answers"
+    )
+    response = models.ForeignKey(
+        SurveyResponsesModel, on_delete=models.CASCADE, related_name="answers"
+    )
 
     def __str__(self) -> str:
         return self.answer

@@ -1,7 +1,7 @@
 from rest_framework import generics
-from survey.models import SurveyModel
+from survey.models import SurveyModel, SurveyResponsesModel
 from survey.serializers import SurveysSerializer
-from survey.serializers import AnswerSerializer
+from survey.serializers import SurveyResponsesSerializer
 from survey.serializers import SurveySerializer
 
 
@@ -17,5 +17,8 @@ class SurveyViews(generics.RetrieveAPIView):
     lookup_url_kwarg = "survey_id"
 
 
-class AnswerViews(generics.CreateAPIView):
-    serializer_class = AnswerSerializer
+class SurveyResponsesViews(generics.CreateAPIView):
+    serializer_class = SurveyResponsesSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(survey=SurveyModel.objects.get(id=self.kwargs.get("survey_id")))
