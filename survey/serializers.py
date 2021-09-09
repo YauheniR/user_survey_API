@@ -35,16 +35,13 @@ class SurveyResponsesSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
 
     def create(self, validated_data):
-        print(validated_data)
         answers_data = validated_data.pop("answers")
-        print(validated_data)
         survey_response = SurveyResponsesModel.objects.create(**validated_data)
 
         for answer_data in answers_data:
-            print(answer_data)
             AnswerModel.objects.create(response=survey_response, **answer_data)
         return survey_response
 
     class Meta:
         model = SurveyResponsesModel
-        fields = ("user_id", "answers")
+        fields = ("answers",)

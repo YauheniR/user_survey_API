@@ -1,5 +1,6 @@
+import uuid
 from rest_framework import generics
-from survey.models import SurveyModel, SurveyResponsesModel
+from survey.models import SurveyModel
 from survey.serializers import SurveysSerializer
 from survey.serializers import SurveyResponsesSerializer
 from survey.serializers import SurveySerializer
@@ -21,4 +22,14 @@ class SurveyResponsesViews(generics.CreateAPIView):
     serializer_class = SurveyResponsesSerializer
 
     def perform_create(self, serializer):
-        serializer.save(survey=SurveyModel.objects.get(id=self.kwargs.get("survey_id")))
+        session = self.request.session
+        user_uuid = session.get("uuid")
+        if not self.request.user.is_authenticated or user_uuid is None:
+            user_uuid = str(uuid.uuid4())
+
+        session["uuid"] = user_uuid
+
+        serializer.save(
+            survey=SurveyModel.objects.get(id=self.kwargs.get("survey_id")),
+            user_uuid=user_uuid,
+        )
