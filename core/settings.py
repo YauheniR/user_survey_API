@@ -44,9 +44,17 @@ INSTALLED_APPS = [
     "allauth.account",
     "drf_spectacular",
     "survey.apps.SurveyConfig",
+    "users.apps.UsersConfig",
 ]
 
 SITE_ID = 1
+
+REST_AUTH_SERIALIZERS = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ],
+    "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
+}
 
 REST_FRAMEWORK = {
     # YOUR SETTINGS
@@ -120,6 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
+AUTH_USER_MODEL = "users.UserModel"
 
 LANGUAGE_CODE = "en-us"
 

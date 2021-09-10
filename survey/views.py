@@ -22,12 +22,15 @@ class SurveyResponsesViews(generics.CreateAPIView):
     serializer_class = SurveyResponsesSerializer
 
     def perform_create(self, serializer):
-        session = self.request.session
-        user_uuid = session.get("uuid")
-        if not self.request.user.is_authenticated or user_uuid is None:
-            user_uuid = str(uuid.uuid4())
-
-        session["uuid"] = user_uuid
+        user_uuid = ""
+        if self.request.user.is_authenticated:
+            user_uuid = self.request.user.uuid
+        else:
+            user_uuid = self.request.session.get("uuid")
+            if user_uuid is None:
+                user_uuid = str(uuid.uuid4())
+                session = self.request.session
+                session["uuid"] = user_uuid
 
         serializer.save(
             survey=SurveyModel.objects.get(id=self.kwargs.get("survey_id")),
