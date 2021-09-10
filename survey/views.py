@@ -32,8 +32,7 @@ class SurveyResponsesViews(generics.CreateAPIView):
             user_uuid = self.request.session.get("uuid")
             if user_uuid is None:
                 user_uuid = str(uuid.uuid4())
-                session = self.request.session
-                session["uuid"] = user_uuid
+                self.request.session["uuid"] = user_uuid
 
         serializer.save(
             survey=SurveyModel.objects.get(id=self.kwargs.get("survey_id")),
@@ -46,10 +45,10 @@ class AnswersViews(generics.ListAPIView):
     serializer_class = SurveyResponsesSerializer
 
     def get_queryset(self):
-        uuid = ""
+        answer_uuid = None
         if self.request.user.is_authenticated:
-            uuid = self.request.user.uuid
+            answer_uuid = self.request.user.uuid
         else:
-            uuid = self.request.session["uuid"]
+            answer_uuid = self.request.session["uuid"]
 
-        return get_list_or_404(SurveyResponsesModel, user_uuid=uuid)
+        return get_list_or_404(SurveyResponsesModel, user_uuid=answer_uuid)

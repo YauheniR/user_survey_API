@@ -11,7 +11,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
 
+
+root = environ.Path(__file__) - 2
+env = environ.Env(
+    DEBUG=(bool, False),
+)
+environ.Env.read_env(
+    env_file=os.path.join(root.root, ".env")
+)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,12 +28,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "fhznt49g5xqw%aye=i=1a@t8289)gc#c4x$%g7f_9d%5jc1cz1"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = env("PROJECT_HOST").split(",")
 
 # Application definition
 

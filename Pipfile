@@ -11,6 +11,7 @@ self = "*"
 drf-spectacular = "*"
 question = "*"
 django-rest-auth = {extras = ["with_social"], version = "*"}
+django-environ = "*"
 
 [dev-packages]
 
