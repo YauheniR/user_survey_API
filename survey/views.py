@@ -49,6 +49,9 @@ class AnswersViews(generics.ListAPIView):
         if self.request.user.is_authenticated:
             answer_uuid = self.request.user.uuid
         else:
-            answer_uuid = self.request.session["uuid"]
+re            answer_uuid = self.request.session.get("uuid")
+            if answer_uuid is None:
+                answer_uuid = str(uuid.uuid4())
+                self.request.session["uuid"] = answer_uuid
 
         return get_list_or_404(SurveyResponsesModel, user_uuid=answer_uuid)
