@@ -31,7 +31,7 @@ class QuestionModel(models.Model):
 
 
 class SurveyResponsesModel(models.Model):
-    user_uuid = models.UUIDField(primary_key=True)
+    user_uuid = models.UUIDField()
     survey = models.ForeignKey(
         SurveyModel, on_delete=models.CASCADE, related_name="response"
     )

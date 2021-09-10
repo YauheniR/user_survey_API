@@ -1,5 +1,8 @@
 import uuid
+
+from django.shortcuts import get_list_or_404
 from rest_framework import generics
+from survey.models import SurveyResponsesModel
 from survey.models import SurveyModel
 from survey.serializers import SurveysSerializer
 from survey.serializers import SurveyResponsesSerializer
@@ -36,3 +39,17 @@ class SurveyResponsesViews(generics.CreateAPIView):
             survey=SurveyModel.objects.get(id=self.kwargs.get("survey_id")),
             user_uuid=user_uuid,
         )
+
+
+class AnswersViews(generics.ListAPIView):
+    queryset = SurveyResponsesModel.objects.all()
+    serializer_class = SurveyResponsesSerializer
+
+    def get_queryset(self):
+        uuid = ""
+        if self.request.user.is_authenticated:
+            uuid = self.request.user.uuid
+        else:
+            uuid = self.request.session["uuid"]
+
+        return get_list_or_404(SurveyResponsesModel, user_uuid=uuid)

@@ -11,4 +11,3 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "email",
         )
-
